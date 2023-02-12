@@ -44,6 +44,14 @@ async function submitTrailingStopOrder(order) {
 async function myFunction(order, res) {
     await setLeverage(order.symbol, order.marginCoin, order.leverage);
     await submitTrailingStopOrder(order);
+    futuresClient.submitOrder(order)
+        .then(result => {
+            console.log("postNewFuturesOrder result: ", result);
+            res.status(201).json(result);
+        })
+        .catch(err => {
+            console.error("postNewFuturesOrder error: ", err);
+        });
 }
 
 
@@ -88,17 +96,8 @@ app.post('/api/v1/placeorder', (req, res) => {
         rangeRate,
         triggerPrice,
     };
+    myFunction(order, res)
 
-    myFunction(order)
-
-    futuresClient.submitOrder(order)
-        .then(result => {
-            console.log("postNewFuturesOrder result: ", result);
-            res.status(201).json(result);
-        })
-        .catch(err => {
-            console.error("postNewFuturesOrder error: ", err);
-        });
 });
 
 
