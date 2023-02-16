@@ -70,7 +70,7 @@ async function myFunction(order, res) {
 }
 
 
-app.post('/api/v1/placeorder', (req, res) => {
+app.post('/api/v1/placeorder', async (req, res) => {
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
@@ -113,7 +113,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     }
 
     if (balance * leverage > minSize) {
-        const amountBuyPAIR2 = AMOUNT * LEVERAGE
+        const amountBuyPAIR2 = AMOUNT * leverage
         const price = (await client.futuresMarket.markPrice(symbol))
             .data.markPrice
 
@@ -128,6 +128,8 @@ app.post('/api/v1/placeorder', (req, res) => {
 
         tp = replaceMultipler(tp, pricePlace, multiplier)
         sl = replaceMultipler(sl, pricePlace, multiplier)
+
+    }    
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
