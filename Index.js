@@ -90,7 +90,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const triggerPrice = req.body.triggerPrice;
     const triggerType = 'market_price';
     
-    const symbolInfo = (client.futuresMarket.contracts(`umcbl`))
+    const symbolInfo = (futuresClient.futuresMarket.contracts(`umcbl`))
         .data.filter(item => item.baseCoin === PAIR1)[0]
 
     const { pricePlace, multiplier, sizePlace, minSize } = {
