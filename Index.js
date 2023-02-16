@@ -90,9 +90,9 @@ app.post('/api/v1/placeorder', (req, res) => {
     const triggerPrice = req.body.triggerPrice;
     const triggerType = 'market_price';
 
-    var tp = parseFloat(parseFloat(price) + (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2);
+    var tp = parseFloat(parseFloat(price) + (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2)
 
-    var sl = parseFloat(parseFloat(price) - (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);
+    var sl = parseFloat(parseFloat(price) - (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2)
     const presetTakeProfitPrice = tp;
     const presetStopLossPrice = sl;
    
