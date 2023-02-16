@@ -88,6 +88,18 @@ app.post('/api/v1/placeorder', (req, res) => {
     const rangeRate = req.body.rangeRate;
     const triggerPrice = req.body.triggerPrice;
     const triggerType = 'market_price';
+    
+    
+    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
+        .data.filter(item => item.baseCoin === PAIR1)[0]
+
+
+    const { pricePlace, multiplier, sizePlace, minSize } = {
+        pricePlace: symbolInfo.pricePlace,
+        multiplier: symbolInfo.priceEndStep,
+        sizePlace: symbolInfo.volumePlace,
+        minSize: symbolInfo.minTradeNum
+    }
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
