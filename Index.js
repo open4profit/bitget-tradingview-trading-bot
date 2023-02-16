@@ -87,6 +87,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const planType = req.body.planType;
     const rangeRate = req.body.rangeRate;
     const triggerPrice = req.body.triggerPrice;
+    const triggerType = 'market_price';
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
