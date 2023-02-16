@@ -81,12 +81,12 @@ app.post('/api/v1/placeorder', (req, res) => {
     const side = req.body.side;
     const price = req.body.price;
     const size = req.body.size;
-    //const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
-    //const presetStopLossPrice = req.body.presetStopLossPrice;
+    const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
+    const presetStopLossPrice = req.body.presetStopLossPrice;
     const leverage = req.body.leverage;
     const planType = req.body.planType;
     const rangeRate = req.body.rangeRate;
-    //const triggerPrice = req.body.triggerPrice;
+    const triggerPrice = req.body.triggerPrice;
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
