@@ -70,7 +70,7 @@ async function myFunction(order, res) {
 }
 
 
-app.post('/api/v1/placeorder', async (req, res) => {
+app.post('/api/v1/placeorder', (req, res) => {
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
@@ -90,20 +90,8 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const triggerPrice = req.body.triggerPrice;
     const triggerType = 'market_price';
     
-    
-    const market = `${PAIR1}${PAIR2}`// BTCUSDT
-    const account = (await client.futuresAccount
-        .account(symbol, PAIR2)).data
-
-    const { balance, marginMode } = {
-        
-        marginMode: account.marginMode,
-        balance: account.available
-    }
-    
-    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
+    const symbolInfo = (client.futuresMarket.contracts(`umcbl`))
         .data.filter(item => item.baseCoin === PAIR1)[0]
-
 
     const { pricePlace, multiplier, sizePlace, minSize } = {
         pricePlace: symbolInfo.pricePlace,
@@ -111,25 +99,18 @@ app.post('/api/v1/placeorder', async (req, res) => {
         sizePlace: symbolInfo.volumePlace,
         minSize: symbolInfo.minTradeNum
     }
+    const amountBuyPAIR2 = AMOUNT * leverage;
+    const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(triggerPrice)
+    var tp = parseFloat(parseFloat(triggerPrice)
+        + (parseFloat(triggerPrice) * TAKE_PROFIT_PERCENT / 100)).toFixed(pricePlace)
 
-    if (balance * leverage > minSize) {
-        const amountBuyPAIR2 = AMOUNT * leverage
-        const price = (await client.futuresMarket.markPrice(symbol))
-            .data.markPrice
+    var sl = parseFloat(parseFloat(triggerPrice)
+        - (parseFloat(triggerPrice) * STOP_LOSS_PERCENT / 100)).toFixed(pricePlace)
 
-        //const price = EXE_PRICE
+    tp = replaceMultipler(tp, pricePlace, multiplier)
+    sl = replaceMultipler(sl, pricePlace, multiplier)
 
-        const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price)
-        var tp = parseFloat(parseFloat(price)
-            + (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(pricePlace)
-
-        var sl = parseFloat(parseFloat(price)
-            - (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(pricePlace)
-
-        tp = replaceMultipler(tp, pricePlace, multiplier)
-        sl = replaceMultipler(sl, pricePlace, multiplier)
-
-    }    
+      
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
