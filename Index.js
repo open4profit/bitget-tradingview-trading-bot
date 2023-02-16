@@ -102,7 +102,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     // const triggerPrice = "22857";
     
     const account = (await client.futuresAccount
-        .account(symbol, marginCoin)).data
+        .account('${symbol}', marginCoin)).data
 
     const { balance, leverage, marginMode } = {
         leverage: account.fixedLongLeverage,
