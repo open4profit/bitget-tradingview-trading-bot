@@ -18,6 +18,20 @@ const futuresClient = new FuturesClient({
     apiPass: API_PASS,
 }, );
 
+//beta
+const replaceMultipler = (number, decimals, multipler) => {
+    number = number.toString()
+    var result = number.includes('.') ? number.split('.')[1] : ''
+    if (result.length == decimals) {
+        result = result.slice(0, -1) + multipler
+        result = (number.includes('.')
+            ? number.split('.')[0] : number) + '.' + result
+    } else {
+        result = number
+    }
+
+    return result
+}
 
 async function setLeverage(symbol, marginCoin, leverage) {
     try {
