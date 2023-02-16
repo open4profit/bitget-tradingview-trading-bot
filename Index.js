@@ -91,7 +91,43 @@ app.post('/api/v1/placeorder', (req, res) => {
     const triggerType = 'market_price';
     
     
+    const market = `${PAIR1}${PAIR2}`// BTCUSDT
+    const account = (await client.futuresAccount
+        .account(symbol, PAIR2)).data
+
+    const { balance, marginMode } = {
+        
+        marginMode: account.marginMode,
+        balance: account.available
+    }
     
+    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
+        .data.filter(item => item.baseCoin === PAIR1)[0]
+
+
+    const { pricePlace, multiplier, sizePlace, minSize } = {
+        pricePlace: symbolInfo.pricePlace,
+        multiplier: symbolInfo.priceEndStep,
+        sizePlace: symbolInfo.volumePlace,
+        minSize: symbolInfo.minTradeNum
+    }
+
+    if (balance * leverage > minSize) {
+        const amountBuyPAIR2 = AMOUNT * LEVERAGE
+        const price = (await client.futuresMarket.markPrice(symbol))
+            .data.markPrice
+
+        //const price = EXE_PRICE
+
+        const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price)
+        var tp = parseFloat(parseFloat(price)
+            + (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(pricePlace)
+
+        var sl = parseFloat(parseFloat(price)
+            - (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(pricePlace)
+
+        tp = replaceMultipler(tp, pricePlace, multiplier)
+        sl = replaceMultipler(sl, pricePlace, multiplier)
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
