@@ -33,6 +33,17 @@ const replaceMultipler = (number, decimals, multipler) => {
     return result
 }
 
+const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
+        .data.filter(item => item.baseCoin === PAIR1)[0]
+
+
+    const { pricePlace, multiplier, sizePlace, minSize } = {
+        pricePlace: symbolInfo.pricePlace,
+        multiplier: symbolInfo.priceEndStep,
+        sizePlace: symbolInfo.volumePlace,
+        minSize: symbolInfo.minTradeNum
+    }
+
 async function setLeverage(symbol, marginCoin, leverage) {
     try {
         const response = await futuresClient.postPrivate('/api/mix/v1/account/setLeverage', {
@@ -90,16 +101,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const triggerType = 'market_price';
     
     
-    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
-        .data.filter(item => item.baseCoin === PAIR1)[0]
-
-
-    const { pricePlace, multiplier, sizePlace, minSize } = {
-        pricePlace: symbolInfo.pricePlace,
-        multiplier: symbolInfo.priceEndStep,
-        sizePlace: symbolInfo.volumePlace,
-        minSize: symbolInfo.minTradeNum
-    }
+    
    
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
