@@ -18,11 +18,9 @@ const futuresClient = new FuturesClient({
     apiPass: API_PASS,
 }, );
 
-var tp = parseFloat(parseFloat(price)
-            - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2)
+const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2)
 
-    var sl = parseFloat(parseFloat(price)
-        + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2)
+const sl = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2)
 
     const presetTakeProfitPrice = tp;
     const presetStopLossPrice = sl;
