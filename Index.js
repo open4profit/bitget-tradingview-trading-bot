@@ -72,6 +72,10 @@ async function myFunction(order, res) {
 app.post('/api/v1/placeorder', (req, res) => {
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
+    const PAIR1 = req.body.PAIR1;
+    const AMOUNT = req.body.AMOUNT;
+    const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
+    const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT ;
     const orderType = req.body.orderType;
     const side = req.body.side;
     const price = req.body.price;
