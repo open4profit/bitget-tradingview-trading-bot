@@ -33,16 +33,6 @@ const replaceMultipler = (number, decimals, multipler) => {
     return result
 }
 
-const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
-        .data.filter(item => item.baseCoin === PAIR1)[0]
-
-
-    const { pricePlace, multiplier, sizePlace, minSize } = {
-        pricePlace: symbolInfo.pricePlace,
-        multiplier: symbolInfo.priceEndStep,
-        sizePlace: symbolInfo.volumePlace,
-        minSize: symbolInfo.minTradeNum
-    }
 
 async function setLeverage(symbol, marginCoin, leverage) {
     try {
