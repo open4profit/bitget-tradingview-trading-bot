@@ -73,6 +73,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
+    const PAIR2 = req.body.marginCoin;
     const AMOUNT = req.body.AMOUNT;
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT ;
@@ -80,13 +81,13 @@ app.post('/api/v1/placeorder', (req, res) => {
     const side = req.body.side;
     const price = req.body.price;
     const size = req.body.size;
-    const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
-    const presetStopLossPrice = req.body.presetStopLossPrice;
+    //const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
+    //const presetStopLossPrice = req.body.presetStopLossPrice;
     const leverage = req.body.leverage;
     const planType = req.body.planType;
     const rangeRate = req.body.rangeRate;
-    const triggerPrice = req.body.triggerPrice;
-
+    //const triggerPrice = req.body.triggerPrice;
+   
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
     // const orderType = 'limit';
@@ -99,6 +100,60 @@ app.post('/api/v1/placeorder', (req, res) => {
     // const planType = "moving_plan";
     // const rangeRate = "10";
     // const triggerPrice = "22857";
+    
+    const account = (await client.futuresAccount
+        .account(symbol, marginCoin)).data
+
+    const { balance, leverage, marginMode } = {
+        leverage: account.fixedLongLeverage,
+        marginMode: account.marginMode,
+        balance: account.available
+    }
+
+    const changeMargin = { marginCoin, symbol }
+
+    if (marginMode === 'fixed') {
+        // Set margin mode to insolated
+        console.log('Setting margin mode to cross...')
+        await client.futuresAccount.setMarginMode({
+            ...
+            changeMargin,
+            marginMode: 'crossed'
+        })
+    }
+
+    
+    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
+        .data.filter(item => item.baseCoin === PAIR1)[0]
+
+
+    const { pricePlace, multiplier, sizePlace, minSize } = {
+        pricePlace: symbolInfo.pricePlace,
+        multiplier: symbolInfo.priceEndStep,
+        sizePlace: symbolInfo.volumePlace,
+        minSize: symbolInfo.minTradeNum
+    }
+
+    if (balance * leverage > minSize) {
+        const amountBuyPAIR2 = AMOUNT * leverage
+        const price = (await client.futuresMarket.markPrice(`symbol`))
+            .data.markPrice
+        const triggerPrice = parseFloat(price).toFixed(pricePlace)
+
+
+        //const price = EXE_PRICE
+
+        const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price)
+        var tp = parseFloat(parseFloat(price)
+            + (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(pricePlace)
+
+        var sl = parseFloat(parseFloat(price)
+            - (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(pricePlace)
+
+        presetTakeProfitPrice = replaceMultipler(tp, pricePlace, multiplier)
+        presetStopLossPrice = replaceMultipler(sl, pricePlace, multiplier)
+        
+        ////
 
     const order = {
         symbol,
