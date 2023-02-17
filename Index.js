@@ -72,7 +72,7 @@ async function myFunction(order, res) {
 }
 
 
-app.post('/api/v1/placeorder', (req, res) => {
+app.post('/api/v1/placeorder', async (req, res) => {
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
