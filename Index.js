@@ -8,6 +8,17 @@ const {
     FuturesClient,
 } = require('bitget-api');
 
+const bitget = require('bitget-openapi');
+const client = {
+    futuresAccount: new bitget.MixAccountApi(apiKey, secretKey, passphrase),
+    futuresOrder: new bitget.MixOrderApi(apiKey, secretKey, passphrase),
+    futuresPosition: new bitget.MixPlanApi(apiKey, secretKey, passphrase),
+    futuresMarket: new bitget.MixMarketApi(apiKey, secretKey, passphrase)
+}
+
+module.exports = client
+
+
 const API_KEY = process.env.API_KEY;
 const API_SECRET = process.env.API_SECRET;
 const API_PASS = process.env.API_PASS;
@@ -74,7 +85,7 @@ async function myFunction(order, res) {
 
 app.post('/api/v1/placeorder', async (req, res) => {
 
-    const symbolInfo = (await futuresClient.futuresMarket.contracts(`umcbl`))
+    const symbolInfo = (await client.futuresMarket.contracts(`umcbl`))
         .data.filter(item => item.baseCoin === req.body.PAIR1)[0]
 
 
