@@ -78,15 +78,19 @@ app.post('/api/v1/placeorder', (req, res) => {
     const PAIR1 = req.body.PAIR1;
     const PAIR2 = req.body.marginCoin;
     const AMOUNT = req.body.AMOUNT;
+    const leverage = req.body.leverage;
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT ;
     const orderType = req.body.orderType;
     const side = req.body.side;
     const price = req.body.price;
-    const size = req.body.size;
+    const amountBuyPAIR2  = AMOUNT * leverage;
+    const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price);
+    const size = parseFloat(amountBuyPAIR1).toFixed(2);
+    //const size = req.body.size;
+    //const size = req.body.amount/req.body.price;
     //const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
-    //const presetStopLossPrice = req.body.presetStopLossPrice;
-    const leverage = req.body.leverage;
+    //const presetStopLossPrice = req.body.presetStopLossPrice;    
     const planType = req.body.planType;
     const rangeRate = req.body.rangeRate;
     const triggerPrice = parseFloat(req.body.triggerPrice).toFixed(2);
@@ -124,7 +128,6 @@ app.post('/api/v1/placeorder', (req, res) => {
         planType,
         rangeRate,
         triggerPrice,
-        triggerType
     };
     myFunction(order, res)
 
