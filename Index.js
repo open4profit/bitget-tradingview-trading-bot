@@ -73,6 +73,18 @@ async function myFunction(order, res) {
 
 
 app.post('/api/v1/placeorder', async (req, res) => {
+
+    const symbolInfo = (await futuresClient.futuresMarket.contracts(`umcbl`))
+        .data.filter(item => item.baseCoin === req.body.PAIR1)[0]
+
+
+    const { pricePlace, multiplier, sizePlace, minSize } = {
+        pricePlace: symbolInfo.pricePlace,
+        multiplier: symbolInfo.priceEndStep,
+        sizePlace: symbolInfo.volumePlace,
+        minSize: symbolInfo.minTradeNum
+    }
+
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
