@@ -99,7 +99,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const presetTakeProfitPrice = tp;
     
     const presetStopLossPrice = sl;
-   console.log(presetStopLossPrice);
+    console.log(presetStopLossPrice);
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
     // const orderType = 'limit';
@@ -127,7 +127,7 @@ app.post('/api/v1/placeorder', (req, res) => {
         leverage,
         planType,
         rangeRate,
-        triggerPrice,
+        triggerPrice
     };
     myFunction(order, res)
 
