@@ -95,7 +95,7 @@ app.post('/api/v1/placeorder', (req, res) => {
     const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2);
 
     const sl = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);
-
+    console.log(`tp: ${tp}`);
     const presetTakeProfitPrice = 1100;
     const presetStopLossPrice = 2500;
    
