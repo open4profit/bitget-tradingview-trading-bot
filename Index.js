@@ -93,8 +93,8 @@ app.post('/api/v1/placeorder', (req, res) => {
     const rangeRate = req.body.rangeRate;
     const triggerPrice = parseFloat(req.body.triggerPrice).toFixed(2);
     const triggerType = 'market_price';
-    const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2);
-    const stoploss = parseFloat(parseFloat(pricesl) + (parseFloat(pricesl) * STOP_LOSS_PERCENT / 100)).toFixed(2);    
+    const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100 * leverage)).toFixed(2);
+    const stoploss = parseFloat(parseFloat(pricesl) + (parseFloat(pricesl) * STOP_LOSS_PERCENT / 100 * leverage)).toFixed(2);    
     const presetTakeProfitPrice = tp;    
     const presetStopLossPrice = stoploss;
     console.log(`presetStopLossPrice: ${stoploss}`);
