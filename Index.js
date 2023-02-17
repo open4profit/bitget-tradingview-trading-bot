@@ -8,20 +8,22 @@ const {
     FuturesClient,
 } = require('bitget-api');
 
+const API_KEY = process.env.API_KEY;
+const API_SECRET = process.env.API_SECRET;
+const API_PASS = process.env.API_PASS;
+
 const bitget = require('bitget-openapi');
 const client = {
-    futuresAccount: new bitget.MixAccountApi(apiKey, secretKey, passphrase),
-    futuresOrder: new bitget.MixOrderApi(apiKey, secretKey, passphrase),
-    futuresPosition: new bitget.MixPlanApi(apiKey, secretKey, passphrase),
-    futuresMarket: new bitget.MixMarketApi(apiKey, secretKey, passphrase)
+    futuresAccount: new bitget.MixAccountApi(API_KEY, API_SECRET, API_PASS),
+    futuresOrder: new bitget.MixOrderApi(API_KEY, API_SECRET, API_PASS),
+    futuresPosition: new bitget.MixPlanApi(API_KEY, API_SECRET, API_PASS),
+    futuresMarket: new bitget.MixMarketApi(API_KEY, API_SECRET, API_PASS)
 }
 
 module.exports = client
 
 
-const API_KEY = process.env.API_KEY;
-const API_SECRET = process.env.API_SECRET;
-const API_PASS = process.env.API_PASS;
+
 
 const futuresClient = new FuturesClient({
     apiKey: API_KEY,
