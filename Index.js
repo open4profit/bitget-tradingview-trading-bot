@@ -84,21 +84,21 @@ app.post('/api/v1/placeorder', (req, res) => {
     const orderType = req.body.orderType;
     const side = req.body.side;
     const price = req.body.price;
-    const amountBuyPAIR2  = AMOUNT * leverage;
-    const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price);
+    const amountBuyPAIR1  = parseFloat(req.body.AMOUNT * req.body.leverage) / parseFloat(req.body.price);
+   // const amountBuyPAIR1 = parseFloat(amountBuyPAIR2) / parseFloat(price);
     const size = parseFloat(amountBuyPAIR1).toFixed(2);
     //const size = req.body.size;
     //const size = req.body.amount/req.body.price;
-    //const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
-    //const presetStopLossPrice = req.body.presetStopLossPrice;    
+    const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
+    const presetStopLossPrice = req.body.presetStopLossPrice;    
     const planType = req.body.planType;
     const rangeRate = req.body.rangeRate;
     const triggerPrice = parseFloat(req.body.triggerPrice).toFixed(2);
     const triggerType = 'market_price';
     const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2);
     const sl = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);    
-    const presetTakeProfitPrice = tp;    
-    const presetStopLossPrice = sl;
+    //const presetTakeProfitPrice = tp;    
+    //const presetStopLossPrice = sl;
     console.log(`presetStopLossPrice: ${tp}`);
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
@@ -128,6 +128,7 @@ app.post('/api/v1/placeorder', (req, res) => {
         planType,
         rangeRate,
         triggerPrice,
+        triggerType
     };
     myFunction(order, res)
 
