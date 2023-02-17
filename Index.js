@@ -93,10 +93,10 @@ app.post('/api/v1/placeorder', (req, res) => {
     const triggerPrice = parseFloat(req.body.triggerPrice).toFixed(2);
     const triggerType = 'market_price';
     const tp = parseFloat(parseFloat(price) - (parseFloat(price) * TAKE_PROFIT_PERCENT / 100)).toFixed(2);
-    const sl = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);    
+    const stoploss = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);    
     //const presetTakeProfitPrice = tp;    
     //const presetStopLossPrice = sl;
-    console.log(`presetStopLossPrice: ${sl}`);
+    console.log(`presetStopLossPrice: ${stoploss}`);
     console.log(`presetTakeProfitPrice: ${tp}`);
 
     // const symbol = 'SBTCSUSDT_SUMCBL';
