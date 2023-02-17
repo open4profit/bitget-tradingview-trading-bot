@@ -97,9 +97,9 @@ app.post('/api/v1/placeorder', (req, res) => {
     const sl = parseFloat(parseFloat(price) + (parseFloat(price) * STOP_LOSS_PERCENT / 100)).toFixed(2);
     
     const presetTakeProfitPrice = tp;
-    //console.log(presetTakeProfitPrice);
+    
     const presetStopLossPrice = sl;
-   
+   console.log(presetStopLossPrice);
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
     // const orderType = 'limit';
