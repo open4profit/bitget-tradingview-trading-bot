@@ -127,7 +127,8 @@ app.post('/api/v1/placeorder', (req, res) => {
         leverage,
         planType,
         rangeRate,
-        triggerPrice
+        triggerPrice,
+        triggerType
     };
     myFunction(order, res)
 
