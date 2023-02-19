@@ -136,6 +136,7 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const presetStopLossPrice = replaceMultipler(stoploss, pricePlace, multiplier);
     console.log(`presetStopLossPrice: ${stoploss}`);
     console.log(`presetTakeProfitPrice: ${tp}`);
+    console.log(`StopLossPrice: ${sl}`);
 
     // const symbol = 'SBTCSUSDT_SUMCBL';
     // const marginCoin = 'SUSDT';
