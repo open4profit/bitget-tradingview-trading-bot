@@ -125,14 +125,14 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const triggerPrice = parseFloat(req.body.triggerPrice).toFixed(pricePlace);
     const triggerType = 'market_price';
     if(sl>cmp){
-    const tp = parseFloat(parseFloat(price) - (parseFloat(price) * (TAKE_PROFIT_PERCENT / leverage) / 100)).toFixed(pricePlace);
-    const stoploss = parseFloat(parseFloat(price) + (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);
+         tp1 = parseFloat(parseFloat(price) - (parseFloat(price) * (TAKE_PROFIT_PERCENT / leverage) / 100)).toFixed(pricePlace);
+         stoploss1 = parseFloat(parseFloat(price) + (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);
    } else {
-    const tp = parseFloat(parseFloat(price) + (parseFloat(price) * (TAKE_PROFIT_PERCENT / leverage) / 100)).toFixed(pricePlace);
-    const stoploss = parseFloat(parseFloat(price) - (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);
+        tp1 = parseFloat(parseFloat(price) + (parseFloat(price) * (TAKE_PROFIT_PERCENT / leverage) / 100)).toFixed(pricePlace);
+        stoploss1 = parseFloat(parseFloat(price) - (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);
    }
-    //const tp = parseFloat(parseFloat(price) - (parseFloat(price) * (TAKE_PROFIT_PERCENT / leverage) / 100)).toFixed(pricePlace);
-    //const stoploss = parseFloat(parseFloat(price) + (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);    
+    const tp = tp1;
+    const stoploss = stoploss1;    
     const presetTakeProfitPrice = replaceMultipler(tp, pricePlace, multiplier);    
     const presetStopLossPrice = replaceMultipler(stoploss, pricePlace, multiplier);
     console.log(`presetStopLossPrice: ${stoploss}`);
