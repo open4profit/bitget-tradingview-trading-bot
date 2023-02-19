@@ -73,7 +73,7 @@ async function submitTrailingStopOrder(order) {
 
 async function myFunction(order, res) {
     await setLeverage(order.symbol, order.marginCoin, order.leverage);
-    await submitTrailingStopOrder(order);
+    //await submitTrailingStopOrder(order);
     futuresClient.submitOrder(order)
         .then(result => {
             console.log("postNewFuturesOrder result: ", result);
