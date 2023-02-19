@@ -109,13 +109,14 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT;
     const orderType = req.body.orderType;
+    let message;
     if (sl > cmp) {
         const side = 'open_short';
     }
     else{
         const side = 'open_long';
     }
-    console.log('sideval: ${side}');
+    console.log(message);
     //const side = req.body.side;
     const price = parseFloat(req.body.price).toFixed(pricePlace);
     const amountBuyPAIR1  = parseFloat(req.body.AMOUNT * req.body.leverage) / parseFloat(req.body.price);
