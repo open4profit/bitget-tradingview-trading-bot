@@ -86,7 +86,7 @@ async function myFunction(order, res) {
 
 
 app.post('/api/v1/placeorder', async (req, res) => {
-
+    const PAIR1 = req.body.PAIR1;
     const symbolInfo = (await client.futuresMarket.contracts(`sumcbl`))
         .data.filter(item => item.baseCoin === req.body.PAIR1)[0];
 
@@ -101,7 +101,7 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const sl = req.body.sl;
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
-    const PAIR1 = req.body.PAIR1;
+    
     const PAIR2 = req.body.marginCoin;
     const AMOUNT = req.body.AMOUNT;
     const leverage = req.body.leverage;
