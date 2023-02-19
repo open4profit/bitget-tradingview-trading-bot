@@ -132,7 +132,7 @@ app.post('/api/v1/placeorder', async (req, res) => {
         stoploss1 = parseFloat(parseFloat(price) - (parseFloat(price) * (STOP_LOSS_PERCENT / leverage) / 100)).toFixed(pricePlace);
    }
     const tp = tp1;
-    const stoploss = stoploss1;    
+    const stoploss = sl;    
     const presetTakeProfitPrice = replaceMultipler(tp, pricePlace, multiplier);    
     const presetStopLossPrice = replaceMultipler(stoploss, pricePlace, multiplier);
     console.log(`presetStopLossPrice: ${stoploss}`);
