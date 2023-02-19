@@ -98,6 +98,8 @@ app.post('/api/v1/placeorder', async (req, res) => {
         minSize: symbolInfo.minTradeNum
     }
 
+    const cmp = req.body.cmp;
+    const sl = req.body.sl;
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     const PAIR1 = req.body.PAIR1;
@@ -107,7 +109,14 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT;
     const orderType = req.body.orderType;
-    const side = req.body.side;
+    if (sl > cmp) {
+        const side = 'open_short';
+    }
+    else{
+        const side = 'open_long';
+    }
+    console.log('sideval: ${side}');
+    //const side = req.body.side;
     const price = parseFloat(req.body.price).toFixed(pricePlace);
     const amountBuyPAIR1  = parseFloat(req.body.AMOUNT * req.body.leverage) / parseFloat(req.body.price);
     const size = parseFloat(amountBuyPAIR1).toFixed(sizePlace);
