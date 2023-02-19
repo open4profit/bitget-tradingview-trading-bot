@@ -97,8 +97,8 @@ app.post('/api/v1/placeorder', async (req, res) => {
         minSize: symbolInfo.minTradeNum
     }
 
-    const cmp = req.body.cmp;
-    const sl = req.body.sl;
+    const cmp = parseFloat(req.body.cmp).toFixed(sizePlace);
+    const sl = parseFloat(req.body.sl).toFixed(sizePlace);
     const symbol = req.body.symbol;
     const marginCoin = req.body.marginCoin;
     
