@@ -87,7 +87,7 @@ async function myFunction(order, res) {
 
 app.post('/api/v1/placeorder', async (req, res) => {
 
-    const symbolInfo = (await client.futuresMarket.contracts(`SUMCBL`))
+    const symbolInfo = (await client.futuresMarket.contracts(`sumcbl`))
         .data.filter(item => item.baseCoin === req.body.PAIR1)[0]
 
 
