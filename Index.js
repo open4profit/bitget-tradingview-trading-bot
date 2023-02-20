@@ -104,17 +104,17 @@ app.post('/api/v1/placeorder', async (req, res) => {
     
     const PAIR2 = req.body.marginCoin;
     const AMOUNT = req.body.AMOUNT;
-    const leverage = req.body.leverage;
+    const leverage = '10'; //req.body.leverage
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT;
-    const orderType = req.body.orderType;
+    const orderType = 'limit'; // market
     if(sl>cmp){
          todo = 'open_short';
     } else {
          todo = 'open_long';
     }
     const side = todo;
-    const price = parseFloat(req.body.price).toFixed(pricePlace);
+    const price = parseFloat(req.body.cmp).toFixed(pricePlace);
     const amountBuyPAIR1  = parseFloat(req.body.AMOUNT * req.body.leverage) / parseFloat(req.body.price);
     const size = parseFloat(amountBuyPAIR1).toFixed(sizePlace);
     //const presetTakeProfitPrice = req.body.presetTakeProfitPrice;
