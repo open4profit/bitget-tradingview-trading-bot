@@ -107,7 +107,7 @@ app.post('/api/v1/placeorder', async (req, res) => {
     const leverage = '10'; //req.body.leverage
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT;
-    const orderType = 'limit'; // market
+    const orderType = 'market'; // market limit
     if(sl>cmp){
          todo = 'open_short';
     } else {
