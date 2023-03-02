@@ -104,7 +104,7 @@ app.post('/api/v1/placeorder', async (req, res) => {
     
     const PAIR2 = req.body.marginCoin;
     const AMOUNT = req.body.AMOUNT;
-    const leverage = '10'; //req.body.leverage
+    const leverage = req.body.leverage
     const TAKE_PROFIT_PERCENT = req.body.TAKE_PROFIT_PERCENT;
     const STOP_LOSS_PERCENT  = req.body.STOP_LOSS_PERCENT;
     const orderType = 'market'; // market limit
